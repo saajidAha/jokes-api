@@ -19,7 +19,7 @@ app.post('/generate', async(req, res)=>{
         try{
             const response = await axios.get(`${API_URL}/${category}`);
             console.log(response);
-            const data =  response.data.setup;
+            const data =  response.data.setup + ' => ' + response.data.delivery;
             console.log(data);
             res.render('index.ejs',{content: data});
         }
