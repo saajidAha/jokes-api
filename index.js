@@ -15,17 +15,19 @@ app.get('/', (req, res)=>{
 app.post('/generate', async(req, res)=>{
     const category = req.body.type;
     console.log(category)
-    try{
-        const response = await axios.get(`${API_URL}/${category}`);
-        console.log(response);
-        const data =  response.data.setup;
-        console.log(data);
-        res.render('index.ejs',{content: data});
-    }
-    catch(error){
-        console.log(error);
-        res.sendStatus(500).render('index.ejs', {content: 'small error with the server. please try again later.'})
-    }
+    if(category ==='misc' || category==='programming' || category==='dark' || category==='pun'){
+        try{
+            const response = await axios.get(`${API_URL}/${category}`);
+            console.log(response);
+            const data =  response.data.setup;
+            console.log(data);
+            res.render('index.ejs',{content: data});
+        }
+        catch(error){
+            console.log(error);
+            res.sendStatus(500).render('index.ejs', {content: 'small error with the server. please try again later.'})
+        }
+    }else{res.render('index.ejs',{content: 'invalid category. please try again.'})}
 })
 
 app.listen(port,()=>{
